@@ -6,10 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +27,18 @@ public class Account {
 
     @Column(name = "balance", nullable = false)
     private BigDecimal balance;
+
+    @CreationTimestamp
+    @Column(name = "created", nullable = false, updatable = false)
+    private LocalDateTime created;
+
+    @UpdateTimestamp
+    @Column(name = "updated", nullable = false)
+    private LocalDateTime updated;
+
+    @Version
+    @Column(name = "version")
+    private int version;
 
     @Override
     public boolean equals(Object o) {

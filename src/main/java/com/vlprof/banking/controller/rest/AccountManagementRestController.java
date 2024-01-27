@@ -1,7 +1,8 @@
 package com.vlprof.banking.controller.rest;
 
-import com.vlprof.banking.dto.AccountDto;
-import com.vlprof.banking.service.AccountServiceImpl;
+import com.vlprof.banking.dto.AccountRequestDto;
+import com.vlprof.banking.dto.AccountResponseDto;
+import com.vlprof.banking.service.AccountManagementServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,20 +19,20 @@ import java.util.UUID;
 @RequestMapping("/account")
 @RequiredArgsConstructor
 public class AccountManagementRestController {
-    private final AccountServiceImpl service;
+    private final AccountManagementServiceImpl service;
 
     @GetMapping
-    public List<AccountDto> findAll() {
+    public List<AccountResponseDto> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<AccountDto> find(@PathVariable("id") UUID id) {
+    public Optional<AccountResponseDto> find(@PathVariable("id") UUID id) {
         return service.findById(id);
     }
 
     @PostMapping
-    public AccountDto create(@RequestBody AccountDto accountDto) {
-        return service.create(accountDto);
+    public AccountResponseDto create(@RequestBody AccountRequestDto account) {
+        return service.create(account);
     }
 }
