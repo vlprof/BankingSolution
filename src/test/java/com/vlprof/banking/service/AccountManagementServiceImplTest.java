@@ -81,11 +81,11 @@ class AccountManagementServiceImplTest {
     }
 
     @Test
-    void create_emptyRequest_accountDto() {
+    void create_nullRequest_accountDto() {
         var accountId = UUID.randomUUID();
         mockAccountRepositorySaveMethod(accountId);
 
-        var result = accountManagementService.create(AccountRequestDto.builder().build());
+        var result = accountManagementService.create(null);
 
         assertAll(
                 () -> verify(accountRepository).save(any(Account.class)),

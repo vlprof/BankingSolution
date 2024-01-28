@@ -46,17 +46,17 @@ public class AccountManagementServiceImpl implements AccountManagementService {
         var account = new Account();
         account.setBalance(BigDecimal.ZERO);
         repository.save(account);
-        updateAccountBalance(account, accountDto.balance());
+        if (accountDto != null && accountDto.balance() != null) {
+            updateAccountBalance(account, accountDto.balance());
+        }
         return new AccountResponseDto(account);
     }
 
     private void updateAccountBalance(Account account, BigDecimal balance) {
-        if (balance != null) {
-            transactionsService.deposit(TransactionRequestDto.builder()
-                    .accountId(account.getId())
-                    .amount(balance)
-                    .build()
-            );
-        }
+        transactionsService.deposit(TransactionRequestDto.builder()
+                .accountId(account.getId())
+                .amount(balance)
+                .build()
+        );
     }
 }

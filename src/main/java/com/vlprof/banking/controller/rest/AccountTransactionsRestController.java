@@ -35,7 +35,7 @@ public class AccountTransactionsRestController {
     }
 
     private TransactionResponseDto createResponseWithType(String type) {
-        var message = type + " request has been completed";
+        var message = "perform " + type + " request";
         return new TransactionResponseDto(message);
     }
 }

@@ -32,7 +32,7 @@ public class AccountManagementRestController {
     }
 
     @PostMapping
-    public AccountResponseDto create(@RequestBody AccountRequestDto account) {
-        return service.create(account);
+    public AccountResponseDto create(@RequestBody Optional<AccountRequestDto> account) {
+        return service.create(account.orElse(null));
     }
 }
