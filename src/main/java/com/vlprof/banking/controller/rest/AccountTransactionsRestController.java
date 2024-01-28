@@ -1,10 +1,10 @@
 package com.vlprof.banking.controller.rest;
 
 import com.vlprof.banking.dto.TransactionRequestDto;
+import com.vlprof.banking.dto.TransactionResponseDto;
 import com.vlprof.banking.dto.TransferRequestDto;
 import com.vlprof.banking.service.AccountTransactionsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,24 +17,25 @@ public class AccountTransactionsRestController {
     private final AccountTransactionsService service;
 
     @PostMapping("/deposit")
-    public ResponseEntity<Object> deposit(@RequestBody TransactionRequestDto transaction) {
+    public TransactionResponseDto deposit(@RequestBody TransactionRequestDto transaction) {
         service.deposit(transaction);
-        return ok();
+        return createResponseWithType("deposit");
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<Object> withdraw(@RequestBody TransactionRequestDto transaction) {
+    public TransactionResponseDto withdraw(@RequestBody TransactionRequestDto transaction) {
         service.withdraw(transaction);
-        return ok();
+        return createResponseWithType("withdraw");
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<Object> deposit(@RequestBody TransferRequestDto transfer) {
+    public TransactionResponseDto transfer(@RequestBody TransferRequestDto transfer) {
         service.transfer(transfer);
-        return ok();
+        return createResponseWithType("transfer");
     }
 
-    private static ResponseEntity<Object> ok() {
-        return ResponseEntity.ok().build();
+    private TransactionResponseDto createResponseWithType(String type) {
+        var message = type + " request has been completed";
+        return new TransactionResponseDto(message);
     }
 }

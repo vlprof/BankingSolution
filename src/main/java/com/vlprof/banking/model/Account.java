@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,6 +20,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "account")
 public class Account {
@@ -39,6 +42,12 @@ public class Account {
     @Version
     @Column(name = "version")
     private int version;
+
+    @Builder
+    public Account(UUID id, BigDecimal balance) {
+        this.id = id;
+        this.balance = balance;
+    }
 
     @Override
     public boolean equals(Object o) {
