@@ -12,8 +12,8 @@
 
     <groupId>com.vlprof.banking</groupId>
     <artifactId>banking-solution</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <version>${artifact-version}</version>
+    <packaging>jar</packaging>
     <name>BankingSolution</name>
     <description>
         A simple banking solution that allow users to perform basic banking operations
@@ -21,11 +21,21 @@
     </description>
 
     <properties>
+        <artifact-version>1.0-SNAPSHOT</artifact-version>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <artifact-version>1.0-RELEASE</artifact-version>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -35,6 +45,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
         <dependency>
